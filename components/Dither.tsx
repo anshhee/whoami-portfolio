@@ -137,12 +137,13 @@ void mainImage(in vec4 inputColor, in vec2 uv, out vec4 outputColor) {
 `;
 
 class RetroEffectImpl extends Effect {
+    // In postprocessing, the uniforms are stored in a Map where values are IUniform or Uniform objects
     uniforms: Map<string, any>;
 
     constructor() {
         const uniforms = new Map([
-            ['colorNum', new (THREE as any).Uniform(4.0)],
-            ['pixelSize', new (THREE as any).Uniform(2.0)]
+            ['colorNum', new THREE.Uniform(4.0)],
+            ['pixelSize', new THREE.Uniform(2.0)]
         ]);
         super('RetroEffect', ditherFragmentShader, { uniforms });
         this.uniforms = uniforms;
@@ -197,20 +198,20 @@ function DitheredWaves({
     enableMouseInteraction,
     mouseRadius
 }: DitheredWavesProps) {
-    const mesh = useRef<any>(null);
-    const mouseRef = useRef(new (THREE as any).Vector2());
+    const mesh = useRef<THREE.Mesh>(null);
+    const mouseRef = useRef(new THREE.Vector2());
     const { viewport, size, gl } = useThree();
 
     const waveUniformsRef = useRef({
-        time: new (THREE as any).Uniform(0),
-        resolution: new (THREE as any).Uniform(new (THREE as any).Vector2(0, 0)),
-        waveSpeed: new (THREE as any).Uniform(waveSpeed),
-        waveFrequency: new (THREE as any).Uniform(waveFrequency),
-        waveAmplitude: new (THREE as any).Uniform(waveAmplitude),
-        waveColor: new (THREE as any).Uniform(new (THREE as any).Color(...waveColor)),
-        mousePos: new (THREE as any).Uniform(new (THREE as any).Vector2(0, 0)),
-        enableMouseInteraction: new (THREE as any).Uniform(enableMouseInteraction ? 1 : 0),
-        mouseRadius: new (THREE as any).Uniform(mouseRadius)
+        time: new THREE.Uniform(0),
+        resolution: new THREE.Uniform(new THREE.Vector2(0, 0)),
+        waveSpeed: new THREE.Uniform(waveSpeed),
+        waveFrequency: new THREE.Uniform(waveFrequency),
+        waveAmplitude: new THREE.Uniform(waveAmplitude),
+        waveColor: new THREE.Uniform(new THREE.Color(...waveColor)),
+        mousePos: new THREE.Uniform(new THREE.Vector2(0, 0)),
+        enableMouseInteraction: new THREE.Uniform(enableMouseInteraction ? 1 : 0),
+        mouseRadius: new THREE.Uniform(mouseRadius)
     });
 
     useEffect(() => {
