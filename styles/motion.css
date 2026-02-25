@@ -1,0 +1,116 @@
+/* Typography Motion System */
+
+/* Calm easing curve - Nothing-inspired */
+:root {
+    --motion-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --motion-duration-fast: 300ms;
+    --motion-duration-base: 500ms;
+    --motion-duration-slow: 700ms;
+}
+
+/* Fade In Utilities */
+.fade-in {
+    animation: fadeIn var(--motion-duration-base) var(--motion-ease) forwards;
+}
+
+.fade-in-fast {
+    animation: fadeIn var(--motion-duration-fast) var(--motion-ease) forwards;
+}
+
+.fade-in-slow {
+    animation: fadeIn var(--motion-duration-slow) var(--motion-ease) forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade In Up (larger movement) */
+.fade-in-up {
+    animation: fadeInUp var(--motion-duration-base) var(--motion-ease) forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade In Down */
+.fade-in-down {
+    animation: fadeInDown var(--motion-duration-base) var(--motion-ease) forwards;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered Delays */
+.delay-100 {
+    animation-delay: 100ms;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.delay-300 {
+    animation-delay: 300ms;
+}
+
+.delay-400 {
+    animation-delay: 400ms;
+}
+
+.delay-500 {
+    animation-delay: 500ms;
+}
+
+/* Initial State (prevents flash) */
+.motion-safe {
+    opacity: 0;
+}
+
+/* Respect user preferences */
+@media (prefers-reduced-motion: reduce) {
+
+    .fade-in,
+    .fade-in-fast,
+    .fade-in-slow,
+    .fade-in-up,
+    .fade-in-down {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .delay-100,
+    .delay-200,
+    .delay-300,
+    .delay-400,
+    .delay-500 {
+        animation-delay: 0ms;
+    }
+}

@@ -1,0 +1,198 @@
+/* Global Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Color Tokens */
+:root {
+    --color-bg: #000000;
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #888888;
+    --color-border: #333333;
+
+    /* Font families */
+    --font-heading: var(--font-heading);
+    --font-body: var(--font-body);
+
+    /* ── ProfileCard holographic variables ── */
+    --pointer-x: 50%;
+    --pointer-y: 50%;
+    --pointer-from-center: 0;
+    --pointer-from-top: 0.5;
+    --pointer-from-left: 0.5;
+    --card-opacity: 0;
+    --rotate-x: 0deg;
+    --rotate-y: 0deg;
+    --background-x: 50%;
+    --background-y: 50%;
+    --grain: none;
+    --icon: none;
+    --behind-gradient: none;
+    --behind-glow-color: rgba(147, 51, 234, 0.6);
+    --behind-glow-size: 25%;
+    --inner-gradient: none;
+    --card-radius: 30px;
+
+    /* Sunpillar spectrum — purple/pink/blue palette to match site */
+    --sunpillar-1: hsl(280, 100%, 75%);
+    /* violet */
+    --sunpillar-2: hsl(300, 100%, 72%);
+    /* magenta */
+    --sunpillar-3: hsl(320, 100%, 70%);
+    /* pink */
+    --sunpillar-4: hsl(252, 100%, 74%);
+    /* blue-violet */
+    --sunpillar-5: hsl(230, 100%, 72%);
+    /* indigo */
+    --sunpillar-6: hsl(270, 100%, 70%);
+    /* purple */
+    --sunpillar-clr-1: var(--sunpillar-1);
+    --sunpillar-clr-2: var(--sunpillar-2);
+    --sunpillar-clr-3: var(--sunpillar-3);
+    --sunpillar-clr-4: var(--sunpillar-4);
+    --sunpillar-clr-5: var(--sunpillar-5);
+    --sunpillar-clr-6: var(--sunpillar-6);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--color-text-primary);
+    overflow-x: hidden;
+}
+
+/* Apply heading font to all headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 600;
+}
+
+/* OPTION 1: Original - Subtle animated gradient (current) */
+.background-gradient {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(120deg,
+            #000000,
+            #0e0e0e,
+            #000000);
+    background-size: 200% 200%;
+    animation: slowDrift 32s ease-in-out infinite;
+}
+
+/* OPTION 2: Noise Texture Overlay */
+.background-noise {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+        linear-gradient(120deg, #000000, #0e0e0e, #000000),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+    background-size: 200% 200%, 200px 200px;
+    animation: slowDrift 32s ease-in-out infinite;
+}
+
+/* OPTION 3: Radial Gradient Spotlight */
+.background-radial {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 40%,
+            #0f0f0f 0%,
+            #080808 40%,
+            #000000 100%);
+}
+
+/* OPTION 4: Dot Grid Pattern */
+.background-dots {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-color: #000000;
+    background-image: radial-gradient(circle,
+            rgba(255, 0, 0, 0.5) 2px,
+            transparent 2px);
+    background-size: 20px 20px;
+}
+
+/* OPTION 5: Mesh Gradient */
+.background-mesh {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+        radial-gradient(at 20% 30%, rgba(15, 15, 15, 0.8) 0px, transparent 50%),
+        radial-gradient(at 80% 70%, rgba(13, 13, 13, 0.8) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(10, 10, 10, 0.6) 0px, transparent 50%),
+        #000000;
+}
+
+/* OPTION 6: Scanline Effect */
+.background-scanlines {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-color: #000000;
+    background-image: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.008) 2px,
+            rgba(255, 255, 255, 0.008) 4px);
+}
+
+/* OPTION 7: Vignette Effect */
+.background-vignette {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: #000000;
+    box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.8);
+}
+
+/* OPTION 8: Noise + Gradient Combo (Premium) */
+.background-premium {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+        linear-gradient(120deg, #000000, #0e0e0e, #000000),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+    background-size: 200% 200%, 200px 200px;
+    animation: slowDrift 32s ease-in-out infinite;
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slowDrift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Respect accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+    .background-gradient,
+    .background-noise,
+    .background-premium {
+        animation: none;
+    }
+}

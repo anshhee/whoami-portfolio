@@ -1,0 +1,286 @@
+/* ═══════════════════════════════════════════════════
+   Flip Clock — split-flap animation
+   Card: 64×92px  |  Half: 46px  |  Digit: 54px
+   ═════════════════════════════════════════════════ */
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ── Date / day row ── */
+.dateRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    color: rgba(192, 152, 255, 0.75);
+    user-select: none;
+}
+
+.dayName {
+    color: rgba(147, 51, 234, 0.9);
+}
+
+.dateDivider {
+    color: rgba(147, 51, 234, 0.4);
+}
+
+.dateStr {
+    color: rgba(192, 152, 255, 0.65);
+}
+
+/* ── Clock face row ── */
+.face {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+/* ── Unit: pair of cards + label ── */
+.unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.cardRow {
+    display: flex;
+    gap: 3px;
+}
+
+.unitLabel {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: rgba(147, 51, 234, 0.65);
+    text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════════════
+   Individual flip card
+   ══════════════════════════════════════════════════ */
+.card {
+    position: relative;
+    width: 36px;
+    height: 60px;
+    perspective: 600px;
+}
+
+/* ── Both halves share these base styles ── */
+.half {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 30px;
+    overflow: hidden;
+}
+
+/* TOP half: covers 0 → 43px */
+.topHalf {
+    top: 0;
+    border-radius: 6px 6px 0 0;
+    background: linear-gradient(175deg, rgb(24, 16, 42) 0%, rgb(18, 11, 32) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Digit inside top half is positioned to show the UPPER half of a full-height element */
+.topHalf .num {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    color: #f0eaff;
+    letter-spacing: -0.03em;
+    user-select: none;
+}
+
+/* BOTTOM half: covers 43px → 86px */
+.bottomHalf {
+    bottom: 0;
+    border-radius: 0 0 6px 6px;
+    background: linear-gradient(175deg, rgb(14, 9, 26) 0%, rgb(20, 13, 36) 100%);
+}
+
+/* Digit inside bottom half: shift up so we see the LOWER half of the full-height element */
+.bottomHalf .num {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    color: #d8ceff;
+    letter-spacing: -0.03em;
+    user-select: none;
+}
+
+/* Center fold line */
+.foldLine {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    margin-top: -0.75px;
+    background: rgba(10, 5, 20, 0.9);
+    z-index: 20;
+    pointer-events: none;
+}
+
+/* Subtle glow on each card */
+.card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(147, 51, 234, 0.18),
+        0 0 20px rgba(147, 51, 234, 0.1);
+    pointer-events: none;
+    z-index: 25;
+}
+
+/* ══════════════════════════════════════════════════
+   Animated flaps — layered on top (z-index: 10)
+   ══════════════════════════════════════════════════ */
+.flap {
+    z-index: 10;
+    backface-visibility: hidden;
+}
+
+.topHalf.flap {
+    transform-origin: bottom center;
+}
+
+.bottomHalf.flap {
+    transform-origin: top center;
+}
+
+/* UPPER flap flips FROM 0° TO -90° (folds down, disappears) */
+@keyframes flipDown {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    100% {
+        transform: rotateX(-90deg);
+    }
+}
+
+.flipDown {
+    animation: flipDown 0.22s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+/* LOWER flap flips FROM 90° TO 0° (unfolds upward), delayed until upper finishes */
+@keyframes flipUp {
+    0% {
+        transform: rotateX(90deg);
+    }
+
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+.flipUp {
+    /* 'both' fill-mode → starts at rotateX(90deg) during the delay (invisible) */
+    animation: flipUp 0.22s cubic-bezier(0, 0.55, 0.45, 1) 0.22s both;
+}
+
+/* ══════════════════════════════════════════════════
+   Dot separator between units (animated blink)
+   ══════════════════════════════════════════════════ */
+.sep {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    gap: 10px;
+    padding-bottom: 18px;
+    /* visually center between card and label area */
+}
+
+.sep span {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(147, 51, 234, 0.75);
+    box-shadow: 0 0 6px rgba(147, 51, 234, 0.5);
+    animation: blink 1s ease-in-out infinite;
+}
+
+.sep span:nth-child(2) {
+    animation-delay: 0.12s;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+}
+
+
+
+/* ── Responsive: scale down on small screens ── */
+@media (max-width: 540px) {
+    .card {
+        width: 38px;
+        height: 56px;
+    }
+
+    .half {
+        height: 28px;
+    }
+
+    .bottomHalf {
+        bottom: 0;
+    }
+
+    .bottomHalf .num {
+        top: -28px;
+        height: 56px;
+        font-size: 30px;
+    }
+
+    .topHalf .num {
+        height: 56px;
+        font-size: 30px;
+    }
+
+    .sep {
+        height: 56px;
+        gap: 8px;
+        padding-bottom: 16px;
+    }
+}

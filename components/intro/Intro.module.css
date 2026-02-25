@@ -1,0 +1,184 @@
+.intro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Clock anchor — Option D: giant ghostly watermark behind content */
+.clockAnchor {
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(4);
+    transform-origin: center center;
+    opacity: 0.07;
+    z-index: 0;
+    /* behind .content (which has no z-index = auto > 0) */
+    user-select: none;
+    cursor: default;
+    transition: opacity 600ms ease-in-out;
+}
+
+.clockAnchor:hover {
+    opacity: 0.28;
+}
+
+/* Glow overlay — GPU composited, opacity-only (smooth) */
+.clockGlow {
+    position: absolute;
+    inset: -80px;
+    background: radial-gradient(ellipse at center,
+            rgba(147, 51, 234, 0.45) 0%,
+            rgba(147, 51, 234, 0.25) 35%,
+            rgba(147, 51, 234, 0.1) 60%,
+            transparent 75%);
+    opacity: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    transition: opacity 600ms ease-in-out;
+    will-change: opacity;
+}
+
+.clockAnchor:hover .clockGlow {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .clockAnchor {
+        transform: translate(-50%, -50%) scale(2.2);
+        opacity: 0.05;
+        pointer-events: none;
+    }
+}
+
+/* Exit animation state */
+.intro.exiting {
+    animation: introFadeOut 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    pointer-events: none;
+}
+
+@keyframes introFadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+.content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 4rem 0 0.75rem 0;
+    color: var(--color-text-primary);
+    transition: opacity 0.5s ease;
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.9),
+        0 4px 12px rgba(0, 0, 0, 0.7),
+        0 0 40px rgba(147, 51, 234, 0.65),
+        0 0 70px rgba(147, 51, 234, 0.45),
+        0 0 100px rgba(147, 51, 234, 0.25);
+}
+
+.role {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-text-secondary);
+    margin: 0 0 0.75rem 0;
+    font-weight: 400;
+    transition: opacity 0.5s ease;
+    text-shadow:
+        0 0 15px rgba(0, 0, 0, 1),
+        0 0 30px rgba(0, 0, 0, 1),
+        0 2px 4px rgba(0, 0, 0, 1),
+        0 4px 8px rgba(0, 0, 0, 0.9),
+        0 8px 16px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(147, 51, 234, 0.3),
+        0 0 50px rgba(147, 51, 234, 0.2);
+}
+
+
+
+/* ── Option D: Ghost → radial ink-drop fill (expands from center) ── */
+.cta {
+    margin-top: 5rem;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 0.875rem 2.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+    background: transparent;
+    border: 1px solid rgba(147, 51, 234, 0.45);
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.08);
+    transition:
+        color 350ms ease,
+        border-color 350ms ease,
+        box-shadow 350ms ease,
+        transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+}
+
+/* Ink drop fill — expands from center via clip-path */
+.cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(109, 40, 217, 0.95) 0%,
+            rgba(147, 51, 234, 0.95) 50%,
+            rgba(168, 85, 247, 0.9) 100%);
+    clip-path: circle(0% at 50% 50%);
+    transition: clip-path 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: -1;
+}
+
+.cta:hover:not(:disabled)::before {
+    clip-path: circle(100% at 50% 50%);
+}
+
+.cta:hover:not(:disabled) {
+    color: #fff;
+    border-color: rgba(147, 51, 234, 0.8);
+    box-shadow:
+        0 0 30px rgba(147, 51, 234, 0.4),
+        0 0 60px rgba(147, 51, 234, 0.2),
+        0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+.cta:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.cta:focus-visible {
+    outline: 2px solid rgba(147, 51, 234, 0.7);
+    outline-offset: 4px;
+}
+
+/* Name dims only when user intentionally hovers the clock */
+.intro:has(.clockAnchor:hover) .name,
+.intro:has(.clockAnchor:hover) .role {
+    opacity: 0.1;
+}
