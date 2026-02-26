@@ -26,10 +26,15 @@ Built using the latest Next.js App Router architecture.
 
 The project follows a layered modular structure:
 app/ → Routing & layout (Next.js App Router)
+
 components/ → Reusable UI components
+
 hooks/ → Custom React hooks
+
 utils/ → Helper functions & logic
+
 styles/ → Global & modular styling
+
 public/ → Static assets
 
 
@@ -80,13 +85,21 @@ Every push triggers:
 
 ## 📂 Folder Structure
 app/
+
 components/
+
 ├── navigation/
+
 ├── intro/
+
 ├── portfolio/
+
 hooks/
+
 utils/
+
 public/
+
 styles/
 
 
