@@ -83,27 +83,40 @@ Every push triggers:
 
 ---
 
-## 📂 Folder Structure
-app/
+## 📂 Project Structure
+## 🏗️ Project Structure
 
-components/
-
-├── navigation/
-
-├── intro/
-
-├── portfolio/
-
-hooks/
-
-utils/
-
-public/
-
-styles/
-
-
----
+whoami-portfolio/
+├── app/
+│   ├── page.tsx              # Main landing page
+│   ├── layout.tsx            # Root layout & metadata
+│   └── globals.css           # Global styles
+│
+├── components/
+│   ├── navigation/           # Navigation system
+│   ├── intro/                # Intro / hero components
+│   ├── portfolio/            # Portfolio sections (About, Skills, Contact)
+│   ├── ProfileCard.tsx       # Profile card UI
+│   ├── VideoBackground.tsx   # Background video handler
+│   ├── RevealOnScroll.tsx    # Scroll animations
+│   └── ScrollIndicator.tsx   # Scroll hint UI
+│
+├── hooks/
+│   ├── useScrollReveal.ts    # Scroll animation logic
+│   ├── useCursorProximity.ts # Cursor interaction logic
+│   └── useTransition.ts      # Transition utilities
+│
+├── utils/
+│   └── audioGenerator.ts     # Audio utilities
+│
+├── public/
+│   ├── assets/               # Static assets (videos/images)
+│   └── memoji.png            # Profile image
+│
+├── styles/                   # Global & utility styles
+├── next.config.ts            # Next.js configuration
+├── tsconfig.json             # TypeScript configuration
+└── package.json              # Project dependencies
 
 ## 🚀 Test it locally
 
