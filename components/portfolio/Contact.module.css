@@ -27,6 +27,9 @@
     color: var(--color-text-secondary);
     max-width: 800px;
     margin: 0;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
     text-shadow:
         0 0 15px rgba(0, 0, 0, 1),
         0 2px 4px rgba(0, 0, 0, 1),
@@ -39,6 +42,10 @@
     text-decoration-thickness: 1px;
     text-underline-offset: 4px;
     transition: opacity 200ms ease;
+    position: relative;
+    display: inline-block;
+    z-index: 20;
+    pointer-events: auto;
     text-shadow:
         0 0 15px rgba(0, 0, 0, 1),
         0 2px 4px rgba(0, 0, 0, 1),
@@ -55,4 +62,6 @@
     width: 100%;
     display: flex;
     justify-content: flex-start;
+    position: relative;
+    z-index: 10;
 }

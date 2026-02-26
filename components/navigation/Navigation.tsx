@@ -79,7 +79,10 @@ export default function Navigation() {
             {/* Backdrop — inline pointerEvents so Particles' `.content > *` can't override it */}
             <div
                 className={`${styles.backdrop} ${isOpen ? styles.backdropVisible : ''}`}
-                style={{ pointerEvents: isOpen ? 'all' : 'none' }}
+                style={{
+                    pointerEvents: isOpen ? 'all' : 'none',
+                    display: isOpen ? 'block' : 'none'
+                }}
                 onClick={() => setIsOpen(false)}
                 aria-hidden="true"
             />

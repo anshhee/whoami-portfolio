@@ -51,12 +51,12 @@ const dockItems = [
     {
         icon: <ResumeIcon />,
         label: 'Resume',
-        href: '/resume.pdf',
+        href: 'https://drive.google.com/file/d/1ZOpie3UuTDohPjYhiZGx6O3yB3AWynpM/view?usp=drive_link',
     },
     {
         icon: <GmailIcon />,
         label: 'Gmail',
-        href: 'mailto:jaiswalanshv2@gmail.com',
+        href: 'https://mail.google.com/mail/?view=cm&fs=1&to=jaiswalanshv2@gmail.com',
     },
     {
         icon: <GitHubIcon />,
@@ -84,8 +84,14 @@ export default function Contact() {
                 <h2 className={styles.heading}>Let&apos;s Connect</h2>
             </RevealOnScroll>
             <RevealOnScroll delay={150}>
-                <p className={styles.text}>
-                    Got something in mind, or just want to say hey? <a href="mailto:jaiswalanshv2@gmail.com" className={styles.link}>Drop me a message</a> - I&apos;m always open to a good conversation.
+                <p className={styles.text} style={{ pointerEvents: 'auto' }}>
+                    Got something in mind, or just want to say hey? <a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=jaiswalanshv2@gmail.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.link}
+                        style={{ pointerEvents: 'auto' }}
+                    >Drop me a message</a> - I&apos;m always open to a good conversation.
                 </p>
             </RevealOnScroll>
             <RevealOnScroll delay={300}>

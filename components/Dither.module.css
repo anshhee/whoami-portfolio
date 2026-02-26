@@ -6,7 +6,7 @@
     overflow: hidden;
 }
 
-.particlesContainer {
+.ditherContainer {
     position: fixed;
     top: 0;
     left: 0;
@@ -15,18 +15,7 @@
     z-index: 0;
 }
 
-.particlesContainer canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-}
-
 .content {
     position: relative;
     z-index: 10;
-    pointer-events: none;
-}
-
-.content>* {
-    pointer-events: auto !important;
 }
