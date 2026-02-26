@@ -85,7 +85,7 @@ Every push triggers:
 
 ## 📂 Project Structure
 ## 🏗️ Project Structure
-
+```bash
 whoami-portfolio/
 ├── app/
 │   ├── page.tsx              # Main landing page
@@ -117,6 +117,7 @@ whoami-portfolio/
 ├── next.config.ts            # Next.js configuration
 ├── tsconfig.json             # TypeScript configuration
 └── package.json              # Project dependencies
+```
 
 ## 🚀 Test it locally
 
