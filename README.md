@@ -2,7 +2,7 @@
 
 An interactive developer portfolio built with **Next.js 15 (App Router)** and **TypeScript**, focused on performance, clean architecture, and modern UI.
 
-🌐 **Live Site:** https://your-vercel-url.vercel.app  
+🌐 **Live Site:** https://anshe.vercel.app  
 
 ---
 
